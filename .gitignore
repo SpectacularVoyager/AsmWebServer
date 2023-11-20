@@ -1,0 +1,4 @@
+Debug/
+gdb.conf
+*.out
+*.o
