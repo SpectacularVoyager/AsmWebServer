@@ -6,7 +6,7 @@ It is compiled with nasm
 The project is heavily inspired by [Tsoding's project](https://www.youtube.com/@TsodingDaily)
 
 ## Building the project
-> make compile
+> make compile    
 > make link
 
 ## To Run
