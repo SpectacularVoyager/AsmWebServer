@@ -42,6 +42,7 @@ _main:
 		CHECK_ERRORS
 	
 		WRITE [rbp-16],response,response_len
+		WRITE [rbp-16],resp_html,resp_html_len
 		CHECK_ERRORS
 	
 		WRITE STD_OUT,ok_msg,ok_msg_len
@@ -72,12 +73,14 @@ SECTION .data
 	buffer_len equ $-buffer
 
 
-	response:	db "HTTP/1.0 200 OK",13,10
+	response:	db "HTTP/1.0 200 OK\r\n"
 				db "Content-Type: text-html;charset=utf-8",13,10
 				db "Connection:close",13,10
 				db 13,10
-				db "<h1>Hello World</h1>",10
+				;db "<h1>Hello World</h1>",10
 	response_len equ $-response
+
+	str resp_html,"<h1>Hello World!</h1>"
 
 	;message : db "[INFO]: Server started",10,0
 	;message_len equ $ - message
