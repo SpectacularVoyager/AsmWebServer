@@ -47,11 +47,10 @@ _main:
 		READ [rbp-16],buffer,buffer_len
 		mov rdi,buffer
 		mov rsi,path
-		
+		call getPath
 	
 		WRITE STD_OUT,buffer,buffer_len
-		call getPath
-		WRITE STD_OUT,path,40
+		WRITE STD_OUT,path,1024
 		CHECK_ERRORS
 		CLOSE [rbp-16]
 	jmp _process_request
@@ -68,7 +67,6 @@ _error:
 
 getPath:
 	add rdi,4
-	mov rbp,0
 	__getPath_loop:
 	mov al, byte [rdi]
 	cmp al,32
@@ -76,11 +74,13 @@ getPath:
 	mov [rsi],rax
 	inc rdi
 	inc rsi
-	inc rbp
+	mov al,0
+	mov byte [rsi],0
 	jmp __getPath_loop
 	__getPath_exit:
 	mov rax,0
-	mov [rsi],rax
+	mov byte [rsi],al
+	mov byte [rsi+1],al
 	ret
 
 
