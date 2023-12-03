@@ -1,5 +1,5 @@
 FLAGS = -felf64 -g 
-FILES =HelloWorld.asm
+FILES =src/HelloWorld.asm
 
 compile:
 	@nasm ${FLAGS} ${FILES}

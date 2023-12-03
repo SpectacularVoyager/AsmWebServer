@@ -1,8 +1,8 @@
 global _start
 
 
-%include "Utils/SysCall.mac"
-%include "Utils/System.mac"
+%include "src/Utils/SysCall.mac"
+%include "src/Utils/System.mac"
 
 
 
