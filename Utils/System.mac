@@ -58,3 +58,9 @@
 %macro CLOSE 1
 	syscall_m SYS_CLOSE,%1
 %endmacro
+
+%macro str 2
+	%1 : db %2,10,0
+	%1_len equ $ - %1
+%endmacro
+

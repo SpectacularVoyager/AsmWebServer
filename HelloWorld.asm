@@ -15,6 +15,7 @@ _start:
 _main:
 	push rbp
 	mov rbp,rsp
+	WRITE STD_OUT,Hello,Hello_len
 
 	WRITE STD_OUT,message,message_len
 
@@ -78,25 +79,21 @@ SECTION .data
 				db "<h1>Hello World</h1>",10
 	response_len equ $-response
 
-	message : db "[INFO]: Server started",10,0
-	message_len equ $ - message
+	;message : db "[INFO]: Server started",10,0
+	;message_len equ $ - message
+	str message,"[INFO]: Server started"
 
+	str bind_msg,"[INFO]: Socket Bound"
 
-	bind_msg : db "[INFO]: Socket Bound",10,0
-	bind_msg_len equ $ - bind_msg
+	str listen_msg,"[INFO]: Listening to 127.0.0.1"
 
-	listen_msg : db "[INFO]: Listening to 127.0.0.1",10,0
-	listen_msg_len equ $ - listen_msg
+	str accept_msg,"[INFO]: Accepted Connection to 127.0.0.1"
 
-	accept_msg : db "[INFO]: Accepted Connection to 127.0.0.1",10,0
-	accept_msg_len equ $ - accept_msg
+	str ok_msg,"[INFO]: OK"
 
+	str error,"[ERROR]: ERROR FOUND RETURNING WITH 1"
 
-	ok_msg : db "[INFO]: OK",10,0
-	ok_msg_len equ $ - ok_msg
-
-	error : db "[ERROR]: ERROR FOUND RETURNING WITH 1",10,0
-	error_len equ $ - error
+	str Hello,"Hello World"
 
 
 	client_data:	dw AF_INET
