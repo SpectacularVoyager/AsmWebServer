@@ -5,7 +5,7 @@ compile:
 	@nasm ${FLAGS} ${FILES}
 
 link:
-	@ld *.o
+	@ld src/*.o
 
 run:
 	@./a.out
