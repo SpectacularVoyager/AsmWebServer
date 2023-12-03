@@ -5,18 +5,15 @@ global _start
 %include "src/Utils/System.mac"
 
 
-
-
 SECTION .text
 _start:
-
 	CALL _main
 	EXIT 0
+
+
 _main:
 	push rbp
 	mov rbp,rsp
-	WRITE STD_OUT,Hello,Hello_len
-
 	WRITE STD_OUT,message,message_len
 
 	SOCKET							;;get File descriptor
@@ -48,8 +45,13 @@ _main:
 		WRITE STD_OUT,ok_msg,ok_msg_len
 	
 		READ [rbp-16],buffer,buffer_len
+		mov rdi,buffer
+		mov rsi,path
+		
 	
 		WRITE STD_OUT,buffer,buffer_len
+		call getPath
+		WRITE STD_OUT,path,40
 		CHECK_ERRORS
 		CLOSE [rbp-16]
 	jmp _process_request
@@ -63,6 +65,23 @@ _error:
 	WRITE STD_OUT,error,error_len
 	CLOSE [rbp-8]
 	EXIT 1
+
+getPath:
+	add rdi,4
+	mov rbp,0
+	__getPath_loop:
+	mov al, byte [rdi]
+	cmp al,32
+	je __getPath_exit
+	mov [rsi],rax
+	inc rdi
+	inc rsi
+	inc rbp
+	jmp __getPath_loop
+	__getPath_exit:
+	mov rax,0
+	mov [rsi],rax
+	ret
 
 
 SECTION .data
@@ -96,8 +115,7 @@ SECTION .data
 
 	str error,"[ERROR]: ERROR FOUND RETURNING WITH 1"
 
-	str Hello,"Hello World"
-
+	path: times(1024) db 0
 
 	client_data:	dw AF_INET
 					dw 47115
