@@ -1,0 +1,60 @@
+
+
+%define SYS_READ 0
+%define SYS_WRITE 1
+%define SYS_CLOSE 3
+%define SYS_EXIT 60
+%define STD_OUT 0
+
+%define SYS_SOCKET 41
+%define SYS_ACCEPT 43
+%define SYS_BIND 49
+%define SYS_LISTEN 50
+
+%define AF_INET 2
+%define SOCK_STREAM 1
+
+
+;;MACROS
+%macro EXIT 1
+	syscall_m SYS_EXIT,%1
+%endmacro
+
+%macro WRITE 3
+	syscall_m SYS_WRITE,%1,%2,%3
+%endmacro
+
+%macro READ 3
+	syscall_m SYS_READ,%1,%2,%3
+%endmacro
+
+%macro CHECK_ERRORS 0
+	cmp rax,0
+	jl _error
+%endmacro
+
+
+%macro SOCKET 0
+	syscall_m SYS_SOCKET,AF_INET,SOCK_STREAM,0	
+%endmacro
+
+%macro BIND  3
+	syscall_m SYS_BIND,%1,%2,%3
+%endmacro
+
+%macro LISTEN  2
+	syscall_m SYS_LISTEN,%1,%2
+%endmacro
+
+%macro ACCEPT  3
+	syscall_m SYS_ACCEPT,%1,%2,%3
+%endmacro
+
+
+%macro SEND  3
+	syscall_m SYS_ACCEPT,%1,%2,%3
+%endmacro
+
+%macro CLOSE 1
+	syscall_m SYS_CLOSE,%1
+%endmacro

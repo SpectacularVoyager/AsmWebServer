@@ -5,7 +5,10 @@ compile:
 	@nasm ${FLAGS} ${FILES}
 
 link:
-	@ld ${OUTPUT}/*.o
+	@ld *.o
 
 run:
 	@./a.out
+
+debug:
+	@gdb -tui a.out
